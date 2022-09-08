@@ -18,7 +18,6 @@ def select_artists():
             'Make sure you spell their name correctly\n\n')
 
 def main():
-    # place functions here
     spotify = run_spotify(CLIENT_ID, CLIENT_SECRET)
     print('Are you looking for some new song recommendations?\nIf yes, then you\'ve come to the right place!\n\n')
     print('In order to make some suitable recommendations, we just need to get to know you a bit better!\n\n')
