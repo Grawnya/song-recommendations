@@ -18,6 +18,9 @@ def select_artists():
             'Make sure you spell their name correctly\n\n')
     while len(music_artists) <= 5:
         artist = Artist(spotify, input(f'{len(music_artists) + 1}. Music Artist: \n'))
+        artist_id = artist.artist_id()
+        if artist_id:
+            music_artists.append(artist_id)
 
 def main():
     spotify = run_spotify(CLIENT_ID, CLIENT_SECRET)
