@@ -11,4 +11,6 @@ class Artist:
         try:
             final_artist = narrowing_down_artist_details['items'][0]
             music_artist_spotify_id = final_artist['id']
+        except IndexError:
+            music_artist_spotify_id = False
         return music_artist_spotify_id
