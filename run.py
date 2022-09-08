@@ -22,7 +22,7 @@ def closed_question_answer_checks(y_or_n):
         remove_whitespace.replace(' ', '')
     return remove_whitespace.lower()
 
-def select_artists_from_API(spotify):
+def select_artists_from_api(spotify):
     '''
     Takes the spotify connection as an argument and
     gets the spotify IDs for the music artists called
@@ -47,14 +47,16 @@ def select_artists_from_API(spotify):
             break
     return music_artists
 
-def main():
-    spotify = run_spotify(CLIENT_ID, CLIENT_SECRET)
+def artist_selection(spotify):
     print('Are you looking for some new song recommendations?\n'\
         'If yes, then you\'ve come to the right place!\n\n')
     print('In order to make some suitable recommendations, '\
         'we just need to get to know you a bit better!\n\n')
     music_artists = select_artists_from_API(spotify)
-    print(music_artists)
+
+def main():
+    spotify = run_spotify(CLIENT_ID, CLIENT_SECRET)
+    artist_selection(spotify)
     print('next stage')
 
 main()
