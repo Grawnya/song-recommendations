@@ -22,9 +22,9 @@ def closed_question_answer_checks(y_or_n):
         remove_whitespace.replace(' ', '')
     return remove_whitespace.lower()
 
-def select_artists(spotify):
+def select_artists_from_API(spotify):
     '''
-    Takes the spotify connection as an argument and 
+    Takes the spotify connection as an argument and
     gets the spotify IDs for the music artists called
     '''
     music_artists = []
@@ -53,7 +53,7 @@ def main():
         'If yes, then you\'ve come to the right place!\n\n')
     print('In order to make some suitable recommendations, '\
         'we just need to get to know you a bit better!\n\n')
-    music_artists = select_artists(spotify)
+    music_artists = select_artists_from_API(spotify)
     print(music_artists)
     print('next stage')
 
