@@ -15,6 +15,7 @@ def closed_question_answer_checks(Y_or_N):
     while remove_whitespace.isalpha() == False or remove_whitespace.lower() not in ['y','n']:
         remove_whitespace = input('\nAnswer not valid. Please enter Y or N:\n')
         remove_whitespace.replace(' ', '')
+    return remove_whitespace.lower()
 
 def select_artists():
     music_artists = []
