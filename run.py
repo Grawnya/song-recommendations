@@ -21,6 +21,9 @@ def select_artists():
         artist_id = artist.artist_id()
         if artist_id:
             music_artists.append(artist_id)
+        else:
+            print('\n******\nArtist name is not valid, please enter a new name\n******\n')
+        check_for_another_artist = input('\nDo you want to add another: Y or N:\n')
 
 def main():
     spotify = run_spotify(CLIENT_ID, CLIENT_SECRET)
