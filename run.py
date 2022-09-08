@@ -16,6 +16,8 @@ def select_artists():
             'are at the moment?\n\nUp to 5!\n\n'\
             'Examples include: Cardi B, Arctic Monkeys and Bryan Adams\n\n'\
             'Make sure you spell their name correctly\n\n')
+    while len(music_artists) <= 5:
+        artist = Artist(spotify, input(f'{len(music_artists) + 1}. Music Artist: \n'))
 
 def main():
     spotify = run_spotify(CLIENT_ID, CLIENT_SECRET)
