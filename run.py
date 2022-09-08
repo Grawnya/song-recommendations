@@ -4,6 +4,7 @@ from client_details import *
 
 
 def run_spotify(client_id, client_secret):
+    '''Access the Spotify API with a client ID and client secret'''
     client_credentials_manager = SpotifyClientCredentials(client_id=client_id,
                                                         client_secret=client_secret)
     spotify = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
