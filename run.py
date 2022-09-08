@@ -1,6 +1,7 @@
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 from client_details import *
+from music_artists import *
 
 def run_spotify(client_id, client_secret):
     '''Access the Spotify API with a client ID and client secret'''
@@ -31,6 +32,11 @@ def select_artists():
         else:
             print('\n******\nArtist name is not valid, please enter a new name\n******\n')
         check_for_another_artist = input('\nDo you want to add another: Y or N:\n')
+        answer = closed_question_answer_checks(check_for_another_artist)
+        if answer == 'y':
+            pass
+        else:
+            break
 
 def main():
     spotify = run_spotify(CLIENT_ID, CLIENT_SECRET)
