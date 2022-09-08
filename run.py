@@ -52,11 +52,14 @@ def artist_selection(spotify):
         'If yes, then you\'ve come to the right place!\n\n')
     print('In order to make some suitable recommendations, '\
         'we just need to get to know you a bit better!\n\n')
-    music_artists = select_artists_from_API(spotify)
+    music_artists = select_artists_from_api(spotify)
+    music_artists_string = ','.join([str(item) for item in music_artists])
+    return music_artists_string
 
 def main():
     spotify = run_spotify(CLIENT_ID, CLIENT_SECRET)
-    artist_selection(spotify)
+    music_artists = artist_selection(spotify)
+    print(music_artists)
     print('next stage')
 
 main()
