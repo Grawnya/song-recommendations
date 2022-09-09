@@ -16,3 +16,10 @@ class SpotifyDetails:
         except IndexError:
             value_spotify_id = False
         return value_spotify_id
+
+class Artist(SpotifyDetails):
+    '''
+    artist subclass
+    '''
+    def __init__(self, spotify_credentials, name):
+        super().__init__(spotify_credentials, name, 'artist')
