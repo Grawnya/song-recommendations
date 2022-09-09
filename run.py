@@ -61,6 +61,10 @@ def artist_selection(spotify):
     return music_artists_string
 
 def format_genre_input(genre):
+    '''
+    Help validate genre name by removing whitespace either side, 
+    making the genre all lower case and converting spaces to "-"
+    '''
     genre = genre.lower()
     genre = genre.strip(' ')
     genre = genre.replace(' ', '-')
