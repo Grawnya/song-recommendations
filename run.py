@@ -60,6 +60,17 @@ def artist_selection(spotify):
     music_artists_string = ','.join([str(item) for item in music_artists])
     return music_artists_string
 
+def genre_selection(spotify):
+    '''Prints list of all possible genres'''
+    print('\n\nNext up is genre selection!!\n'\
+        'Now we find out if you are more of a Dancing Queen or a Rock Star?'\
+        '\n\n*****\nThe list below consists of the possible genres, which you can input one at a time\n'\
+        '*****\n')
+    user_genre_list = []
+    all_possible_genres = spotify.recommendation_genre_seeds()['genres']
+    genre_sentence = ',  '.join(str(genre) for genre in all_possible_genres)
+    print(genre_sentence + '\n\n')
+
 def main():
     spotify = run_spotify(CLIENT_ID, CLIENT_SECRET)
     music_artists = artist_selection(spotify)
