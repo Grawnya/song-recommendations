@@ -1,7 +1,7 @@
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 from client_details import *
-from music_artists import *
+from spotify_details import *
 
 def run_spotify(client_id, client_secret):
     '''
