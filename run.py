@@ -102,6 +102,8 @@ def genre_selection(spotify):
     all_possible_genres = spotify.recommendation_genre_seeds()['genres']
     genre_sentence = ',  '.join(str(genre) for genre in all_possible_genres)
     print(genre_sentence + '\n\n')
+    user_genre_string = ask_for_genre(spotify, user_genre_list, all_possible_genres)
+    return user_genre_string
 
 def main():
     spotify = run_spotify(CLIENT_ID, CLIENT_SECRET)
