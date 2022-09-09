@@ -1,18 +1,18 @@
-class Artist:
+class SpotifyDetails:
     '''
     docstring to be updated
     '''
-    def __init__(self, spotify_credentials, name):
+    def __init__(self, spotify_credentials, name, search_type_value):
         self.spotify = spotify_credentials
         self.name = name
-        self.id = self.artist_id()
+        self.search_value = search_type_value
 
-    def artist_id(self):
-        results = self.spotify.search(q='artist:' + self.name, type='artist')
-        narrowing_down_artist_details = results['artists']
+    def id(self):
+        results = self.spotify.search(q=f'{self.search_value}' + self.name, type=f'{self.search_value}')
+        narrowing_down_element_details = results[f'{self.search_value}s']
         try:
-            final_artist = narrowing_down_artist_details['items'][0]
-            music_artist_spotify_id = final_artist['id']
+            final_value = narrowing_down_element_details['items'][0]
+            value_spotify_id = final_value['id']
         except IndexError:
-            music_artist_spotify_id = False
-        return music_artist_spotify_id
+            value_spotify_id = False
+        return value_spotify_id
