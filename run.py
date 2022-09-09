@@ -48,6 +48,10 @@ def select_artists_from_api(spotify):
     return music_artists
 
 def artist_selection(spotify):
+    '''
+    Sets up the script for asking the user for music artists in the terminal 
+    and returns their Spotify ID in a comma separated string
+    '''
     print('Are you looking for some new song recommendations?\n'\
         'If yes, then you\'ve come to the right place!\n\n')
     print('In order to make some suitable recommendations, '\
