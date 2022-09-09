@@ -80,7 +80,8 @@ def genre_is_valid(spotify, genre, all_possible_genres):
 
 def ask_for_genre(spotify, user_genre_list, all_possible_genres):
     '''Ask user for up to 5 genres and validate'''
-    while len(user_genre_list) <= 5:
+    while len(user_genre_list) < 5:
+        print(len(user_genre_list))
         genre_input = genre_is_valid(spotify, input(f'{len(user_genre_list) + 1}. Genre: \n'), all_possible_genres)
         user_genre_list.append(genre_input)
         check_for_another_artist = input('\nDo you want to add another: Y (for Yes) or N (for No):\n')
@@ -110,8 +111,9 @@ def genre_selection(spotify):
 
 def main():
     spotify = run_spotify(CLIENT_ID, CLIENT_SECRET)
-    music_artists = artist_selection(spotify)
-    print(music_artists)
+    # music_artists = artist_selection(spotify)
+    user_genres = genre_selection(spotify)
+    print(user_genres)
     print('next stage')
 
 main()
