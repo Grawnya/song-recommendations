@@ -60,6 +60,12 @@ def artist_selection(spotify):
     music_artists_string = ','.join([str(item) for item in music_artists])
     return music_artists_string
 
+def format_genre_input(genre):
+    genre = genre.lower()
+    genre = genre.strip(' ')
+    genre = genre.replace(' ', '-')
+    return genre
+
 def genre_is_valid(spotify, genre, all_possible_genres):
     '''Checks if a genre is in the list of spotify genres'''
     if genre.replace(' ', '').isalpha():
