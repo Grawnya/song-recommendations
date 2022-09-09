@@ -60,6 +60,14 @@ def artist_selection(spotify):
     music_artists_string = ','.join([str(item) for item in music_artists])
     return music_artists_string
 
+def genre_is_valid(spotify, genre, all_possible_genres):
+    '''Checks if a genre is in the list of spotify genres'''
+    if genre.replace(' ', '').isalpha():
+        genre = format_genre_input(genre)
+    while genre not in all_possible_genres:
+        genre = genre_is_valid(spotify, input('\nPlease input a new genre as the one entered is not valid\n'), all_possible_genres)
+    return genre
+
 def genre_selection(spotify):
     '''Prints list of all possible genres'''
     print('\n\nNext up is genre selection!!\n'\
