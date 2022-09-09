@@ -35,16 +35,18 @@ def select_artists_from_api(spotify):
     while len(music_artists) < 5:
         artist = Artist(spotify, input(f'{len(music_artists) + 1}. Music Artist: \n'))
         artist_id = artist.artist_id()
-        if artist_id:
+        if artist_id and artist_id not in music_artists:
             music_artists.append(artist_id)
         else:
-            print('\n******\nArtist name is not valid, please enter a new name\n******\n')
-        check_for_another_artist = input('\nDo you want to add another: Y or N:\n')
-        answer = closed_question_answer_checks(check_for_another_artist)
-        if answer == 'y':
-            pass
-        else:
-            break
+            print('\n******\nArtist name is not valid or has already been entered'\
+                ' please enter a new name\n******\n')
+        if len(music_artists) < 5:
+            check_for_another_artist = input('\nDo you want to add another: Y or N:\n')
+            answer = closed_question_answer_checks(check_for_another_artist)
+            if answer == 'y':
+                pass
+            else:
+                break
     return music_artists
 
 def artist_selection(spotify):
@@ -75,24 +77,29 @@ def genre_is_valid(spotify, genre, all_possible_genres):
     if genre.replace(' ', '').isalpha():
         genre = format_genre_input(genre)
     while genre not in all_possible_genres:
-        genre = genre_is_valid(spotify, input('\nPlease input a new genre as the one entered is not valid\n'), all_possible_genres)
+        genre = genre_is_valid(spotify, 
+                                input('\nPlease input a new genre as the one entered is not valid\n'), 
+                                all_possible_genres)
     return genre
 
 def ask_for_genre(spotify, user_genre_list, all_possible_genres):
     '''Ask user for up to 5 genres and validate'''
     while len(user_genre_list) < 5:
         print(len(user_genre_list))
-        genre_input = genre_is_valid(spotify, input(f'{len(user_genre_list) + 1}. Genre: \n'), all_possible_genres)
+        genre_input = genre_is_valid(spotify, 
+                                    input(f'{len(user_genre_list) + 1}. Genre: \n'), 
+                                    all_possible_genres)
         if genre_input in user_genre_list:
             print('\nGenre has already been inputted, please select another one')
         while genre_input not in user_genre_list:
             user_genre_list.append(genre_input)
-            check_for_another_artist = input('\nDo you want to add another: Y (for Yes) or N (for No):\n')
-            answer = closed_question_answer_checks(check_for_another_artist)
-            if answer == 'y':
-                pass
-            else:
-                break
+            if len(user_genre_list) < 5:
+                check_for_another_artist = input('\nDo you want to add another: Y (for Yes) or N (for No):\n')
+                answer = closed_question_answer_checks(check_for_another_artist)
+                if answer == 'y':
+                    pass
+                else:
+                    break
     user_genre_string = ','.join([str(item) for item in user_genre_list])
     return user_genre_string
 
@@ -103,8 +110,8 @@ def genre_selection(spotify):
     '''
     print('\n\nNext up is genre selection!!\n'\
         'Now we find out if you are more of a Dancing Queen or a Rock Star?'\
-        '\n\n*****\nThe list below consists of the possible genres, which you can input one at a time\n'\
-        '*****\n')
+        '\n\n*****\nThe list below consists of the possible genres,'\
+        'which you can input one at a time\n*****\n')
     user_genre_list = []
     all_possible_genres = spotify.recommendation_genre_seeds()['genres']
     genre_sentence = ',  '.join(str(genre) for genre in all_possible_genres)
@@ -114,10 +121,9 @@ def genre_selection(spotify):
 
 def main():
     spotify = run_spotify(CLIENT_ID, CLIENT_SECRET)
-    music_artists = artist_selection(spotify)
-    print(music_artists)
-    # user_genres = genre_selection(spotify)
-    # print(user_genres)
+    # music_artists = artist_selection(spotify)
+    user_genres = genre_selection(spotify)
+    print(user_genres)
     print('next stage')
 
 main()
