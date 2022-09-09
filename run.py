@@ -32,7 +32,7 @@ def select_artists_from_api(spotify):
             'are at the moment?\n\nUp to 5!\n\n'\
             'Examples include: Cardi B, Arctic Monkeys and Bryan Adams\n\n'\
             'Make sure you spell their name correctly\n\n')
-    while len(music_artists) <= 5:
+    while len(music_artists) < 5:
         artist = Artist(spotify, input(f'{len(music_artists) + 1}. Music Artist: \n'))
         artist_id = artist.artist_id()
         if artist_id:
@@ -114,9 +114,10 @@ def genre_selection(spotify):
 
 def main():
     spotify = run_spotify(CLIENT_ID, CLIENT_SECRET)
-    # music_artists = artist_selection(spotify)
-    user_genres = genre_selection(spotify)
-    print(user_genres)
+    music_artists = artist_selection(spotify)
+    print(music_artists)
+    # user_genres = genre_selection(spotify)
+    # print(user_genres)
     print('next stage')
 
 main()
