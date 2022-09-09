@@ -78,6 +78,12 @@ def genre_is_valid(spotify, genre, all_possible_genres):
         genre = genre_is_valid(spotify, input('\nPlease input a new genre as the one entered is not valid\n'), all_possible_genres)
     return genre
 
+def ask_for_genre(spotify, user_genre_list, all_possible_genres):
+    '''Ask user for up to 5 genres and validate'''
+    while len(user_genre_list) <= 5:
+        genre_input = genre_is_valid(spotify, input(f'{len(user_genre_list) + 1}. Genre: \n'), all_possible_genres)
+        user_genre_list.append(genre_input)
+
 def genre_selection(spotify):
     '''Prints list of all possible genres'''
     print('\n\nNext up is genre selection!!\n'\
