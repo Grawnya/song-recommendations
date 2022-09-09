@@ -93,7 +93,10 @@ def ask_for_genre(spotify, user_genre_list, all_possible_genres):
     return user_genre_string
 
 def genre_selection(spotify):
-    '''Prints list of all possible genres'''
+    '''
+    Prints list of all possible genres and
+    read in the inputted genres from the user
+    '''
     print('\n\nNext up is genre selection!!\n'\
         'Now we find out if you are more of a Dancing Queen or a Rock Star?'\
         '\n\n*****\nThe list below consists of the possible genres, which you can input one at a time\n'\
