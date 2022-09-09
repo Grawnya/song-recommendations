@@ -83,13 +83,16 @@ def ask_for_genre(spotify, user_genre_list, all_possible_genres):
     while len(user_genre_list) < 5:
         print(len(user_genre_list))
         genre_input = genre_is_valid(spotify, input(f'{len(user_genre_list) + 1}. Genre: \n'), all_possible_genres)
-        user_genre_list.append(genre_input)
-        check_for_another_artist = input('\nDo you want to add another: Y (for Yes) or N (for No):\n')
-        answer = closed_question_answer_checks(check_for_another_artist)
-        if answer == 'y':
-            pass
-        else:
-            break
+        if genre_input in user_genre_list:
+            print('\nGenre has already been inputted, please select another one')
+        while genre_input not in user_genre_list:
+            user_genre_list.append(genre_input)
+            check_for_another_artist = input('\nDo you want to add another: Y (for Yes) or N (for No):\n')
+            answer = closed_question_answer_checks(check_for_another_artist)
+            if answer == 'y':
+                pass
+            else:
+                break
     user_genre_string = ','.join([str(item) for item in user_genre_list])
     return user_genre_string
 
