@@ -23,3 +23,10 @@ class Artist(SpotifyDetails):
     '''
     def __init__(self, spotify_credentials, name):
         super().__init__(spotify_credentials, name, 'artist')
+
+class Track(SpotifyDetails):
+    '''
+    track subclass
+    '''
+    def __init__(self, spotify_credentials, name):
+        super().__init__(spotify_credentials, name, 'track')
