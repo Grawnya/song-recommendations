@@ -6,6 +6,7 @@ class SpotifyDetails:
         self.spotify = spotify_credentials
         self.name = name
         self.search_value = search_type_value
+        self.specific_returned_item = self.search()
     
     def search(self):
         '''docstring'''
