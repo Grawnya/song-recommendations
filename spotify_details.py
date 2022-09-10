@@ -32,7 +32,7 @@ class Artist(SpotifyDetails):
     artist subclass
     '''
     def __init__(self, spotify_credentials, name):
-        super().__init__(spotify_credentials, name, 'artist')
+        super().__init__(spotify_credentials, name, search_type_value='artist')
 
 class Track(SpotifyDetails):
     '''
