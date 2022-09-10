@@ -35,6 +35,7 @@ def select_from_api(spotify, search_type):
             song_name = input(f'{len(list_of_searched_values) + 1}. Song Name:\n')
             song_artist = input('Song Sang By:\n')
             value = Track(song_artist, spotify, song_name)
+            print(value.preview_link())
         value_id = value.id()
         if value_id and value_id not in list_of_searched_values:
             list_of_searched_values.append(value_id)
@@ -140,9 +141,10 @@ def song_selection(spotify):
 
 def main():
     spotify = run_spotify(CLIENT_ID, CLIENT_SECRET)
-    music_artists = artist_selection(spotify)
+    # music_artists = artist_selection(spotify)
     # user_genres = genre_selection(spotify)
     favourite_songs = song_selection(spotify)
+    print(favourite_songs)
     print('next stage')
 
 main()

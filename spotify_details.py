@@ -50,7 +50,10 @@ class Track(SpotifyDetails):
     
     def preview_link(self):
         '''docstring'''
-        return self.characteristic('preview_url')
+        link = self.characteristic('preview_url')
+        if link == None:
+            link = f'No Valid Preview Link - try the spotify link:\n{self.spotify_link()}'
+        return link
 
     def spotify_link(self):
         '''docstring'''
