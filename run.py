@@ -141,9 +141,8 @@ def song_selection(spotify):
 def main():
     spotify = run_spotify(CLIENT_ID, CLIENT_SECRET)
     music_artists = artist_selection(spotify)
-    print(music_artists)
     # user_genres = genre_selection(spotify)
-    # print(user_genres)
+    favourite_songs = song_selection(spotify)
     print('next stage')
 
 main()
