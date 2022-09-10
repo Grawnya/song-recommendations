@@ -139,6 +139,9 @@ def song_selection(spotify):
     songs_string = ','.join([str(item) for item in songs])
     return songs_string
 
+def song_style_questions():
+    '''docstring'''
+
 def main():
     spotify = run_spotify(CLIENT_ID, CLIENT_SECRET)
     # music_artists = artist_selection(spotify)
