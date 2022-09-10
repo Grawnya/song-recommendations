@@ -22,32 +22,33 @@ def closed_question_answer_checks(y_or_n):
         remove_whitespace.replace(' ', '')
     return remove_whitespace.lower()
 
-def select_artists_from_api(spotify):
+def select_from_api(spotify, search_type):
     '''
-    Takes the spotify connection as an argument and
-    gets the spotify IDs for the music artists called
+    docstring
     '''
-    music_artists = []
-    print('First of all, we need to know who your favourite music artists'\
-            'are at the moment?\n\nUp to 5!\n\n'\
-            'Examples include: Cardi B, Arctic Monkeys and Bryan Adams\n\n'\
-            'Make sure you spell their name correctly\n\n')
-    while len(music_artists) < 5:
-        artist = Artist(spotify, input(f'{len(music_artists) + 1}. Music Artist: \n'))
-        artist_id = artist.id()
-        if artist_id and artist_id not in music_artists:
-            music_artists.append(artist_id)
+    list_of_searched_values = []
+    while len(list_of_searched_values) < 5:
+        if search_type == 'Artist':
+            artist_name = input(f'{len(list_of_searched_values) + 1}. Music Artist: \n')
+            value = Artist(spotify, artist_name)
+        elif search_type == 'Track':
+            song_name = input(f'{len(list_of_searched_values) + 1}. Song Name:\n')
+            song_artist = input('Song Sang By:\n')
+            value = Track(song_artist, spotify, song_name)
+        value_id = value.id()
+        if value_id and value_id not in list_of_searched_values:
+            list_of_searched_values.append(value_id)
         else:
-            print('\n******\nArtist name is not valid or has already been entered'\
+            print('\n******\nValue name is not valid or has already been entered'\
                 ' please enter a new name\n******\n')
-        if len(music_artists) < 5:
+        if len(list_of_searched_values) < 5:
             check_for_another_artist = input('\nDo you want to add another: Y or N:\n')
             answer = closed_question_answer_checks(check_for_another_artist)
             if answer == 'y':
                 pass
             else:
                 break
-    return music_artists
+    return list_of_searched_values
 
 def artist_selection(spotify):
     '''
@@ -58,7 +59,11 @@ def artist_selection(spotify):
         'If yes, then you\'ve come to the right place!\n\n')
     print('In order to make some suitable recommendations, '\
         'we just need to get to know you a bit better!\n\n')
-    music_artists = select_artists_from_api(spotify)
+    print('First of all, we need to know who your favourite music artists'\
+            'are at the moment?\n\nUp to 5!\n\n'\
+            'Examples include: Cardi B, Arctic Monkeys and Bryan Adams\n\n'\
+            'Make sure you spell their name correctly\n\n')
+    music_artists = select_from_api(spotify, 'Artist')
     music_artists_string = ','.join([str(item) for item in music_artists])
     return music_artists_string
 
