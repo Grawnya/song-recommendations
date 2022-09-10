@@ -47,3 +47,6 @@ class Track(SpotifyDetails):
         results = self.spotify.search(q=f'artist:{self.artist_name} {self.search_value}:{self.name}', type=f'{self.search_value}')
         narrowing_down_element_details = results[f'{self.search_value}s']
         return narrowing_down_element_details
+    
+    def preview_link(self):
+        return self.characteristic('preview_url')
