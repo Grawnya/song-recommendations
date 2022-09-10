@@ -124,6 +124,20 @@ def genre_selection(spotify):
     user_genre_string = ask_for_genre(spotify, user_genre_list, all_possible_genres)
     return user_genre_string
 
+def song_selection(spotify):
+    '''
+    docstring
+    '''
+    print('We now need to know what your favourite songs to listen to'\
+            'are at the moment!\nUp to 5!\n'\
+            'Firstly put in the name of the song and then the primary artist\n'\
+            'Examples include:\n\nSong Name:\nTimber\nSong Sang By:\nPitbull'\
+            '\n\nSong Name:\nBelieve\nSong Sang By:\nCher\n\n'\
+            'Watch out for spelling mistakes\n\n')
+    songs = select_from_api(spotify, 'Track')
+    songs_string = ','.join([str(item) for item in songs])
+    return songs_string
+
 def main():
     spotify = run_spotify(CLIENT_ID, CLIENT_SECRET)
     music_artists = artist_selection(spotify)
