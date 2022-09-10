@@ -49,4 +49,14 @@ class Track(SpotifyDetails):
         return narrowing_down_element_details
     
     def preview_link(self):
+        '''docstring'''
         return self.characteristic('preview_url')
+
+    def spotify_link(self):
+        '''docstring'''
+        try:
+            final_value = self.specific_returned_item['items'][0]
+            spotify_link = final_value['external_urls']['spotify']
+        except IndexError:
+            spotify_link = False
+        return spotify_link
