@@ -38,5 +38,6 @@ class Track(SpotifyDetails):
     '''
     track subclass
     '''
-    def __init__(self, spotify_credentials, name):
-        super().__init__(spotify_credentials, name, 'track')
+    def __init__(self, artist_name, spotify_credentials, name):
+        self.artist_name = artist_name
+        super().__init__(spotify_credentials, name, search_type_value='track')
