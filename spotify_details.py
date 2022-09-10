@@ -24,15 +24,7 @@ class SpotifyDetails:
 
     def id(self):
         '''docstring'''
-        results = self.spotify.search(q=f'{self.search_value}' + self.name, type=f'{self.search_value}')
-        print(results)
-        narrowing_down_element_details = results[f'{self.search_value}s']
-        try:
-            final_value = narrowing_down_element_details['items'][0]
-            value_spotify_id = final_value['id']
-        except IndexError:
-            value_spotify_id = False
-        return value_spotify_id
+        return self.characteristic('id')
 
 class Artist(SpotifyDetails):
     '''
