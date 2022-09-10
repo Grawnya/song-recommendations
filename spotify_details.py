@@ -41,3 +41,9 @@ class Track(SpotifyDetails):
     def __init__(self, artist_name, spotify_credentials, name):
         self.artist_name = artist_name
         super().__init__(spotify_credentials, name, search_type_value='track')
+
+    def search(self):
+        '''docstring'''
+        results = self.spotify.search(q=f'artist:{self.artist_name} {self.search_value}:{self.name}', type=f'{self.search_value}')
+        narrowing_down_element_details = results[f'{self.search_value}s']
+        return narrowing_down_element_details
