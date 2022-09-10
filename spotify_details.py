@@ -13,6 +13,15 @@ class SpotifyDetails:
         narrowing_down_element_details = results[f'{self.search_value}s']
         return narrowing_down_element_details
 
+    def characteristic(self, specific):
+        '''docstring'''
+        try:
+            final_value = self.specific_returned_item['items'][0]
+            value_spotify = final_value[specific]
+        except IndexError:
+            value_spotify = False
+        return value_spotify
+
     def id(self):
         '''docstring'''
         results = self.spotify.search(q=f'{self.search_value}' + self.name, type=f'{self.search_value}')
