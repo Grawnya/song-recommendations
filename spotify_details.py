@@ -6,8 +6,15 @@ class SpotifyDetails:
         self.spotify = spotify_credentials
         self.name = name
         self.search_value = search_type_value
+    
+    def search(self):
+        '''docstring'''
+        results = self.spotify.search(q=f'{self.search_value}:{self.name}', type=f'{self.search_value}')
+        narrowing_down_element_details = results[f'{self.search_value}s']
+        return narrowing_down_element_details
 
     def id(self):
+        '''docstring'''
         results = self.spotify.search(q=f'{self.search_value}' + self.name, type=f'{self.search_value}')
         print(results)
         narrowing_down_element_details = results[f'{self.search_value}s']
