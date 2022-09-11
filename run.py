@@ -156,14 +156,17 @@ def song_style_questions():
     )
     dancing = want_to(input('1. Do you feel like dancing at the moment? Y or N\n'),
                         'danceability')
+    focus = want_to(input('\n2. Do you want to focus at the moment? Y or N\n'), 'instrumentalness')
+    popular = want_to(input('\n3. Do you want to listen to something popular? Y or N\n'), 'popularity')
+    return dancing, focus, popular
     
 
 def main():
     spotify = run_spotify(CLIENT_ID, CLIENT_SECRET)
     # music_artists = artist_selection(spotify)
     # user_genres = genre_selection(spotify)
-    favourite_songs = song_selection(spotify)
-    print(favourite_songs)
+    # favourite_songs = song_selection(spotify)
+    dancing, focus, popular = song_style_questions()
     print('next stage')
 
 main()
