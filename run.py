@@ -139,22 +139,23 @@ def song_selection(spotify):
     songs_string = ','.join([str(item) for item in songs])
     return songs_string
 
-def want_to_dance():
+def want_to(question, spotify_category):
+    '''docstring'''
+    task_asked_about = closed_question_answer_checks(question)
+    if task_asked_about == 'y':
+        task_asked_about = f'max_{spotify_category}'
+    else:
+        task_asked_about = f'min_{spotify_category}'
+    return task_asked_about
+
+def song_style_questions():
     '''docstring'''
     print('\n\nWe just need to ask a few more questions to pick out'\
         '\nthe perfect songs for you!\n'\
         'These ones are more mood based\n\n*******\n\n'
     )
-    want_to_dance_question = input('1. Do you feel like dancing at the moment? Y or N\n')
-    danceability = closed_question_answer_checks(want_to_dance_question)
-    if danceability == 'y':
-        danceability = 'max_danceability'
-    else:
-        danceability = 'min_danceability'
-    return danceability
-
-def song_style_questions():
-    '''docstring'''
+    dancing = want_to(input('1. Do you feel like dancing at the moment? Y or N\n'),
+                        'danceability')
     
 
 def main():
