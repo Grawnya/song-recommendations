@@ -160,6 +160,8 @@ def song_style_questions():
     popular = want_to(input('\n3. Do you want to listen to something popular? Y or N\n'), 'popularity')
     return dancing, focus, popular
     
+def make_recommendations():
+    '''docstring'''
 
 def main():
     spotify = run_spotify(CLIENT_ID, CLIENT_SECRET)
