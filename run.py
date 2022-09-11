@@ -24,7 +24,8 @@ def closed_question_answer_checks(y_or_n):
 
 def select_from_api(spotify, search_type):
     '''
-    docstring
+    Connects to spotify API using credentials and selects user input values 
+    based on whether they want to enter in an Artist or Track
     '''
     list_of_searched_values = []
     while len(list_of_searched_values) < 5:
@@ -127,7 +128,7 @@ def genre_selection(spotify):
 
 def song_selection(spotify):
     '''
-    docstring
+    Selects inputted songs and returns their IDs as a comma separated string
     '''
     print('We now need to know what your favourite songs to listen to'\
             'are at the moment!\nUp to 5!\n'\
@@ -140,7 +141,10 @@ def song_selection(spotify):
     return songs_string
 
 def want_to(question, spotify_category):
-    '''docstring'''
+    '''
+    Asks the user a question about their mood, 
+    which is related to a certain spotify category
+    '''
     task_asked_about = closed_question_answer_checks(question)
     if task_asked_about == 'y':
         task_asked_about = f'max_{spotify_category}'
@@ -149,7 +153,7 @@ def want_to(question, spotify_category):
     return task_asked_about
 
 def song_style_questions():
-    '''docstring'''
+    '''Asks the user if they want to dance, focus and listen to something popular'''
     print('\n\nWe just need to ask a few more questions to pick out'\
         '\nthe perfect songs for you!\n'\
         'These ones are more mood based\n\n*******\n\n'
