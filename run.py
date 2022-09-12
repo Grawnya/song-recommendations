@@ -91,21 +91,20 @@ def genre_is_valid(spotify, genre, all_possible_genres):
 def ask_for_genre(spotify, user_genre_list, all_possible_genres):
     '''Ask user for up to 5 genres and validate'''
     while len(user_genre_list) < 5:
-        print(len(user_genre_list))
         genre_input = genre_is_valid(spotify, 
                                     input(f'{len(user_genre_list) + 1}. Genre: \n'), 
                                     all_possible_genres)
         if genre_input in user_genre_list:
             print('\nGenre has already been inputted, please select another one')
-        while genre_input not in user_genre_list:
+        if genre_input not in user_genre_list:
             user_genre_list.append(genre_input)
-            if len(user_genre_list) < 5:
-                check_for_another_artist = input('\nDo you want to add another: Y (for Yes) or N (for No):\n')
-                answer = closed_question_answer_checks(check_for_another_artist)
-                if answer == 'y':
-                    pass
-                else:
-                    break
+        if len(user_genre_list) < 5:
+            check_for_another_artist = input('\nDo you want to add another: Y (for Yes) or N (for No):\n')
+            answer = closed_question_answer_checks(check_for_another_artist)
+            if answer == 'y':
+                pass
+            else:
+                break
     return user_genre_list
 
 def genre_selection(spotify):
@@ -164,14 +163,15 @@ def song_style_questions():
 def make_recommendations(spotify, seed_artists, seed_genres, seed_tracks):
     '''docstring'''
     rec = spotify.recommendations(seed_artists=seed_artists, seed_genres=seed_genres, seed_tracks=seed_tracks)
+    return rec
 
 def main():
     spotify = run_spotify(CLIENT_ID, CLIENT_SECRET)
-    # music_artists = artist_selection(spotify)
-    # user_genres = genre_selection(spotify)
+    music_artists = artist_selection(spotify)
+    user_genres = genre_selection(spotify)
     favourite_songs = song_selection(spotify)
-    print(favourite_songs)
     # dancing, focus, popular = song_style_questions()
-    print('next stage')
+    recommendations = make_recommendations(spotify, music_artists, user_genres, favourite_songs)
+    print(recommendations)
 
 main()
