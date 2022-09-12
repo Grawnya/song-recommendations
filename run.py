@@ -66,8 +66,7 @@ def artist_selection(spotify):
             'Examples include: Cardi B, Arctic Monkeys and Bryan Adams\n\n'\
             'Make sure you spell their name correctly\n\n')
     music_artists = select_from_api(spotify, 'Artist')
-    music_artists_string = ','.join([str(item) for item in music_artists])
-    return music_artists_string
+    return music_artists
 
 def format_genre_input(genre):
     '''
@@ -107,8 +106,7 @@ def ask_for_genre(spotify, user_genre_list, all_possible_genres):
                     pass
                 else:
                     break
-    user_genre_string = ','.join([str(item) for item in user_genre_list])
-    return user_genre_string
+    return user_genre_list
 
 def genre_selection(spotify):
     '''
@@ -137,8 +135,7 @@ def song_selection(spotify):
             '\n\nSong Name:\nBelieve\nSong Sang By:\nCher\n\n'\
             'Watch out for spelling mistakes\n\n')
     songs = select_from_api(spotify, 'Track')
-    songs_string = ','.join([str(item) for item in songs])
-    return songs_string
+    return songs
 
 def want_to(question, spotify_category):
     '''
@@ -164,15 +161,17 @@ def song_style_questions():
     popular = want_to(input('\n3. Do you want to listen to something popular? Y or N\n'), 'popularity')
     return dancing, focus, popular
     
-def make_recommendations():
+def make_recommendations(spotify, seed_artists, seed_genres, seed_tracks):
     '''docstring'''
+    rec = spotify.recommendations(seed_artists=seed_artists, seed_genres=seed_genres, seed_tracks=seed_tracks)
 
 def main():
     spotify = run_spotify(CLIENT_ID, CLIENT_SECRET)
     # music_artists = artist_selection(spotify)
     # user_genres = genre_selection(spotify)
-    # favourite_songs = song_selection(spotify)
-    dancing, focus, popular = song_style_questions()
+    favourite_songs = song_selection(spotify)
+    print(favourite_songs)
+    # dancing, focus, popular = song_style_questions()
     print('next stage')
 
 main()
