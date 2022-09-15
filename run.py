@@ -144,15 +144,24 @@ def song_style_questions():
 def make_recommendations(spotify, seed_artists, seed_genres, seed_tracks):
     '''docstring'''
     rec = spotify.recommendations(seed_artists=[seed_artists], seed_genres=[seed_genres], seed_tracks=[seed_tracks])
-    song_recommendations = rec['tracks'][0]
-    # print(song_recommendations)
+    song_recommendations = rec['tracks']
     for each in song_recommendations:
-        # song = Track(each['artists']['name'], spotify, each['name'])
-        print(each)
-        # print(f"Song Name: {each['name']}")
-    #     print(f"Artist Name: {each['artists']['name']}")
-    #     print(f"Preview Link: {song.preview_link()}")
-    return rec
+        song_name = each['name']
+        song_artist = each['artists'][0]['name']
+        song = Track(song_artist, spotify, song_name)
+        print(f'Song Name: {song_name}')
+        print(f'Song Artist: {song_artist}')
+        print(f'Song Preview: {song.preview_link()}')
+        if 'No Valid Preview Link' not in song.preview_link():
+            print(f'Here\'s the Spotify Link: {song.spotify_link()}')
+        another_song_answer = closed_question_answer_checks(input('\nAnother One?....Song recommendation that is (Type y or n)\n'))
+        if another_song_answer == 'y' and song_recommendations.index(each) < 19:
+            print('\n'*2)
+        else:
+            break
+            play_again = input('\nThanks for playing! Do you want to play again'\
+                                '\n for more song recommendations? y or n')
+            return play_again
 
 def main():
     spotify = run_spotify(CLIENT_ID, CLIENT_SECRET)
