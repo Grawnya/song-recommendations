@@ -160,7 +160,8 @@ def make_recommendations(spotify, seed_artists, seed_genres, seed_tracks):
             else:
                 break
     play_again = closed_question_answer_checks(input('\n\n*****\nThanks for playing! Do you want to play again'\
-                        '\n for more song recommendations?\n y or n\n\n'))
+                        ' for more song recommendations?\n\ny or n\n\n'))
+    print('\n'*2)
     return play_again
 
 def main():
@@ -173,7 +174,9 @@ def main():
         # dancing, focus, popular = song_style_questions()
         play_again = make_recommendations(spotify, music_artists, user_genres, favourite_songs)
     else:
-        print('\nThank you for playing!\n'\
-            'If you have any feedback, please reach out to: https://www.linkedin.com/in/grainne-donegan/')
+        print('\n*****\nThank you for playing!\n'\
+            'If you have any feedback, please reach out to:'\
+            'https://www.linkedin.com/in/grainne-donegan/'\
+            '\n*****')
 
 main()
