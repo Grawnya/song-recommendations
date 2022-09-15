@@ -23,16 +23,6 @@ def closed_question_answer_checks(y_or_n):
         remove_whitespace.replace(' ', '')
     return remove_whitespace.lower()
 
-# def direction_key_error(value):
-#     print(f'Artist Name: {value}')
-#     direction_keys = ['^[[A', '^[[B', '^[[C', '^[[D']
-#     print(any(direction_key in value for direction_key in direction_keys))
-#     if any(direction_key in value for direction_key in direction_keys):
-#         value = direction_key_error(input('A direction key was included in your response,'\
-#             '\nPlease input a new value\n'))
-#     return value
-
-
 def select_from_api(spotify, search_type):
     '''
     Connects to spotify API using credentials and selects user input values 
@@ -96,25 +86,6 @@ def genre_is_valid(spotify, genre, all_possible_genres):
                                 all_possible_genres)
     return genre
 
-def ask_for_genre(spotify, user_genre_list, all_possible_genres):
-    '''Ask user for up to 5 genres and validate'''
-    while len(user_genre_list) < 5:
-        genre_input = genre_is_valid(spotify, 
-                                    input(f'{len(user_genre_list) + 1}. Genre: \n'), 
-                                    all_possible_genres)
-        if genre_input in user_genre_list:
-            print('\nGenre has already been inputted, please select another one')
-        if genre_input not in user_genre_list:
-            user_genre_list.append(genre_input)
-        if len(user_genre_list) < 5:
-            check_for_another_artist = input('\nDo you want to add another: Y (for Yes) or N (for No):\n')
-            answer = closed_question_answer_checks(check_for_another_artist)
-            if answer == 'y':
-                pass
-            else:
-                break
-    return user_genre_list
-
 def genre_selection(spotify):
     '''
     Prints list of all possible genres and
@@ -128,8 +99,10 @@ def genre_selection(spotify):
     all_possible_genres = spotify.recommendation_genre_seeds()['genres']
     genre_sentence = ',  '.join(str(genre) for genre in all_possible_genres)
     print(genre_sentence + '\n\n')
-    user_genre_string = ask_for_genre(spotify, user_genre_list, all_possible_genres)
-    return user_genre_string
+    genre_input = genre_is_valid(spotify, 
+                                input(f'{len(user_genre_list) + 1}. Genre: \n'), 
+                                all_possible_genres)
+    return genre_input
 
 def song_selection(spotify):
     '''
