@@ -50,13 +50,15 @@ class Track(SpotifyDetails):
             feature_to_be_checked = feature_to_be_checked.split('(feat.')[0]
         elif 'feat.' in feature_to_be_checked:
             feature_to_be_checked = feature_to_be_checked.split('feat.')[0]
+        elif ' (' in feature_to_be_checked:
+            feature_to_be_checked = feature_to_be_checked.split('feat.')[0]
         return feature_to_be_checked
 
     def search(self):
         '''docstring'''
         self.name = self.feature_check(self.name)
         self.artist_name = self.feature_check(self.artist_name)
-        results = self.spotify.search(q=f"artist:{self.artist_name} {self.search_value}:{self.name}', type=f'{self.search_value}")
+        results = self.spotify.search(q=f"artist:{self.artist_name} {self.search_value}:{self.name}, type=f'{self.search_value}")
         if results[f'{self.search_value}s']['total'] == 0:
             results = self.spotify.search(q=f"{self.name} {self.artist_name}")
         narrowing_down_element_details = results[f'{self.search_value}s']

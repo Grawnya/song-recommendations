@@ -9,8 +9,7 @@ def run_spotify(client_id, client_secret):
     '''
     Access the Spotify API with a client ID and client secret
     '''
-    client_credentials_manager = SpotifyClientCredentials(client_id=client_id,
-                                                            client_secret=client_secret)
+    client_credentials_manager = SpotifyClientCredentials(client_id=client_id, client_secret=client_secret)
     spotify = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
     return spotify
 
@@ -124,9 +123,9 @@ def want_to(question, spotify_category):
     '''
     task_asked_about = closed_question_answer_checks(question)
     if task_asked_about == 'y':
-        task_asked_about = f'max_{spotify_category}'
-    else:
         task_asked_about = f'min_{spotify_category}'
+    else:
+        task_asked_about = f'max_{spotify_category}'
     return task_asked_about
 
 def song_style_questions():
@@ -144,9 +143,10 @@ def song_style_questions():
     
 def make_recommendations(spotify, seed_artists, seed_genres, seed_tracks, mood_values):
     '''docstring'''
+    print(mood_values)
     rec = spotify.recommendations(seed_artists=[seed_artists], seed_genres=[seed_genres], seed_tracks=[seed_tracks], **mood_values)
+    print(rec)
     song_recommendations = rec['tracks']
-    print(song_recommendations)
     for each in song_recommendations:
         song_name = each['name']
         song_artist = each['artists'][0]['name']
@@ -171,7 +171,6 @@ def main():
     play_again = 'y'
     while play_again == 'y':
         spotify = run_spotify(CLIENT_ID, CLIENT_SECRET)
-        print(spotify)
         music_artists = artist_selection(spotify)
         user_genres = genre_selection(spotify)
         favourite_songs = song_selection(spotify)
