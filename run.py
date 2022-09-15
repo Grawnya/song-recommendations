@@ -43,11 +43,11 @@ def select_from_api(spotify, search_type):
             value = Track(song_artist, spotify, song_name)
         value_id = value.id()
         print(value_id)
-        if value_id and len(value_id) > 0:
+        if value_id:
             valid_value = True
             return value_id
         else:
-            print('\n******\nValue name is not valid or has already been entered'\
+            print('\n******\nValue name is not valid'\
                 ' please enter a new name\n******\n')
 
 def artist_selection(spotify):
@@ -143,7 +143,7 @@ def song_style_questions():
     
 def make_recommendations(spotify, seed_artists, seed_genres, seed_tracks):
     '''docstring'''
-    rec = spotify.recommendations(seed_artists=seed_artists, seed_genres=seed_genres, seed_tracks=seed_tracks)
+    rec = spotify.recommendations(seed_artists=[seed_artists], seed_genres=[seed_genres], seed_tracks=[seed_tracks])
     song_recommendations = rec['tracks'][0]
     # print(song_recommendations)
     for each in song_recommendations:
