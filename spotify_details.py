@@ -4,7 +4,7 @@ class SpotifyDetails:
     '''
     def __init__(self, spotify_credentials, name, search_type_value):
         self.spotify = spotify_credentials
-        self.name = name
+        self.name = name.replace("'", "")
         self.search_value = search_type_value
         self.specific_returned_item = self.search()
     
@@ -41,26 +41,21 @@ class Track(SpotifyDetails):
     track subclass
     '''
     def __init__(self, artist_name, spotify_credentials, name):
-        self.artist_name = artist_name
+        self.artist_name = artist_name.replace("'", "")
         super().__init__(spotify_credentials, name, search_type_value='track')
 
     def feature_check(self, feature_to_be_checked):
         '''docstring'''
-        if '(feat.' in feature_to_be_checked or 'feat.' in feature_to_be_checked:
-            try:
-                feature_to_be_checked = feature_to_be_checked.split('(feat.')[0]
-            except:
-                feature_to_be_checked = feature_to_be_checked.split('feat.')[0]
+        if '(feat.' in feature_to_be_checked:
+            feature_to_be_checked = feature_to_be_checked.split('(feat.')[0]
+        elif 'feat.' in feature_to_be_checked:
+            feature_to_be_checked = feature_to_be_checked.split('feat.')[0]
         return feature_to_be_checked
 
     def search(self):
         '''docstring'''
-        if '(feat.' in self.name or 'feat.' in self.name:
-            try:
-                self.name = self.name.split('(feat.')[0]
-            except:
-                self.name = self.name.split('feat.')[0]
-        print(self.name)
+        self.name = self.feature_check(self.name)
+        self.artist_name = self.feature_check(self.artist_name)
         results = self.spotify.search(q=f"artist:{self.artist_name} {self.search_value}:{self.name}', type=f'{self.search_value}")
         if results[f'{self.search_value}s']['total'] == 0:
             results = self.spotify.search(q=f"{self.name} {self.artist_name}")
