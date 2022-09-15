@@ -46,7 +46,11 @@ class Track(SpotifyDetails):
 
     def search(self):
         '''docstring'''
-        results = self.spotify.search(q=f'artist:{self.artist_name} {self.search_value}:{self.name}', type=f'{self.search_value}')
+        if '(feat.' in self.name:
+            self.name = self.name.split('(feat.')[0]
+        results = self.spotify.search(q=f"artist:{self.artist_name} {self.search_value}:{self.name}', type=f'{self.search_value}")
+        if results[f'{self.search_value}s']['total'] == 0:
+            results = self.spotify.search(q=f"{self.name} {self.artist_name}")
         narrowing_down_element_details = results[f'{self.search_value}s']
         return narrowing_down_element_details
     

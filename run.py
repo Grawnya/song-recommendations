@@ -19,7 +19,7 @@ def closed_question_answer_checks(y_or_n):
     '''
     remove_whitespace = y_or_n.replace(' ', '')
     while remove_whitespace.isalpha() == False or remove_whitespace.lower() not in ['y','n']:
-        remove_whitespace = input('\nAnswer not valid. Please enter Y or N:\n')
+        remove_whitespace = input('\nAnswer not valid. Please enter y or n:\n')
         remove_whitespace.replace(' ', '')
     return remove_whitespace.lower()
 
@@ -42,7 +42,6 @@ def select_from_api(spotify, search_type):
                 song_artist = input(f'\nInvalid key or blank answer given\nPlease enter the name of the artist who sang {song_name}\n')
             value = Track(song_artist, spotify, song_name)
         value_id = value.id()
-        print(value_id)
         if value_id:
             valid_value = True
             return value_id
@@ -135,10 +134,10 @@ def song_style_questions():
         '\nthe perfect songs for you!\n'\
         'These ones are more mood based\n\n*******\n\n'
     )
-    dancing = want_to(input('1. Do you feel like dancing at the moment? Y or N\n'),
+    dancing = want_to(input('1. Do you feel like dancing at the moment? y or n\n'),
                         'danceability')
-    focus = want_to(input('\n2. Do you want to focus at the moment? Y or N\n'), 'instrumentalness')
-    popular = want_to(input('\n3. Do you want to listen to something popular? Y or N\n'), 'popularity')
+    focus = want_to(input('\n2. Do you want to focus at the moment? y or n\n'), 'instrumentalness')
+    popular = want_to(input('\n3. Do you want to listen to something popular? y or n\n'), 'popularity')
     return dancing, focus, popular
     
 def make_recommendations(spotify, seed_artists, seed_genres, seed_tracks):
@@ -149,27 +148,32 @@ def make_recommendations(spotify, seed_artists, seed_genres, seed_tracks):
         song_name = each['name']
         song_artist = each['artists'][0]['name']
         song = Track(song_artist, spotify, song_name)
-        print(f'Song Name: {song_name}')
+        print(f'\nSong Name: {song_name}')
         print(f'Song Artist: {song_artist}')
         print(f'Song Preview: {song.preview_link()}')
         if 'No Valid Preview Link' not in song.preview_link():
             print(f'Here\'s the Spotify Link: {song.spotify_link()}')
-        another_song_answer = closed_question_answer_checks(input('\nAnother One?....Song recommendation that is (Type y or n)\n'))
-        if another_song_answer == 'y' and song_recommendations.index(each) < 19:
-            print('\n'*2)
-        else:
-            break
-            play_again = input('\nThanks for playing! Do you want to play again'\
-                                '\n for more song recommendations? y or n')
-            return play_again
+        if song_recommendations.index(each) < 19:
+            another_song_answer = closed_question_answer_checks(input('\nAnother One?....Song recommendation that is (Type y or n)\n'))
+            if another_song_answer == 'y':
+                print('\n')
+            else:
+                break
+    play_again = closed_question_answer_checks(input('\nThanks for playing! Do you want to play again'\
+                        '\n for more song recommendations? y or n\n'))
+    return play_again
 
 def main():
-    spotify = run_spotify(CLIENT_ID, CLIENT_SECRET)
-    music_artists = artist_selection(spotify)
-    user_genres = genre_selection(spotify)
-    favourite_songs = song_selection(spotify)
-    # dancing, focus, popular = song_style_questions()
-    recommendations = make_recommendations(spotify, music_artists, user_genres, favourite_songs)
-    print(recommendations)
+    play_again = 'y'
+    while play_again == 'y':
+        spotify = run_spotify(CLIENT_ID, CLIENT_SECRET)
+        music_artists = artist_selection(spotify)
+        user_genres = genre_selection(spotify)
+        favourite_songs = song_selection(spotify)
+        # dancing, focus, popular = song_style_questions()
+        play_again = make_recommendations(spotify, music_artists, user_genres, favourite_songs)
+    else:
+        print('\nThank you for playing!\n'\
+            'If you have any feedback, please reach out to: https://www.linkedin.com/in/grainne-donegan/')
 
 main()
