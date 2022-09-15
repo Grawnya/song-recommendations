@@ -4,12 +4,13 @@ from spotipy.oauth2 import SpotifyClientCredentials
 from client_details import *
 from spotify_details import *
 
+
 def run_spotify(client_id, client_secret):
     '''
     Access the Spotify API with a client ID and client secret
     '''
     client_credentials_manager = SpotifyClientCredentials(client_id=client_id,
-                                                        client_secret=client_secret)
+                                                            client_secret=client_secret)
     spotify = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
     return spotify
 
@@ -145,6 +146,7 @@ def make_recommendations(spotify, seed_artists, seed_genres, seed_tracks, mood_v
     '''docstring'''
     rec = spotify.recommendations(seed_artists=[seed_artists], seed_genres=[seed_genres], seed_tracks=[seed_tracks], **mood_values)
     song_recommendations = rec['tracks']
+    print(song_recommendations)
     for each in song_recommendations:
         song_name = each['name']
         song_artist = each['artists'][0]['name']
@@ -169,15 +171,16 @@ def main():
     play_again = 'y'
     while play_again == 'y':
         spotify = run_spotify(CLIENT_ID, CLIENT_SECRET)
+        print(spotify)
         music_artists = artist_selection(spotify)
         user_genres = genre_selection(spotify)
         favourite_songs = song_selection(spotify)
         mood_values = song_style_questions()
         play_again = make_recommendations(spotify, music_artists, user_genres, favourite_songs, mood_values)
     else:
-        print('\n*****\nThank you for playing!\n'\
+        print('*****\n\nThank you for playing!\n'\
             'If you have any feedback, please reach out to:'\
             'https://www.linkedin.com/in/grainne-donegan/'\
-            '\n*****')
+            '\n\n*****')
 
 main()
