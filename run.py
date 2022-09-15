@@ -159,8 +159,8 @@ def make_recommendations(spotify, seed_artists, seed_genres, seed_tracks):
                 print('\n')
             else:
                 break
-    play_again = closed_question_answer_checks(input('\nThanks for playing! Do you want to play again'\
-                        '\n for more song recommendations? y or n\n'))
+    play_again = closed_question_answer_checks(input('\n\n*****\nThanks for playing! Do you want to play again'\
+                        '\n for more song recommendations?\n y or n\n\n'))
     return play_again
 
 def main():
