@@ -138,11 +138,12 @@ def song_style_questions():
                         'danceability')
     focus = want_to(input('\n2. Do you want to focus at the moment? y or n\n'), 'instrumentalness')
     popular = want_to(input('\n3. Do you want to listen to something popular? y or n\n'), 'popularity')
-    return dancing, focus, popular
+    mood_values = {dancing:0.5, focus:0.5, popular:50}
+    return mood_values
     
-def make_recommendations(spotify, seed_artists, seed_genres, seed_tracks):
+def make_recommendations(spotify, seed_artists, seed_genres, seed_tracks, mood_values):
     '''docstring'''
-    rec = spotify.recommendations(seed_artists=[seed_artists], seed_genres=[seed_genres], seed_tracks=[seed_tracks])
+    rec = spotify.recommendations(seed_artists=[seed_artists], seed_genres=[seed_genres], seed_tracks=[seed_tracks], **mood_values)
     song_recommendations = rec['tracks']
     for each in song_recommendations:
         song_name = each['name']
@@ -171,8 +172,8 @@ def main():
         music_artists = artist_selection(spotify)
         user_genres = genre_selection(spotify)
         favourite_songs = song_selection(spotify)
-        # dancing, focus, popular = song_style_questions()
-        play_again = make_recommendations(spotify, music_artists, user_genres, favourite_songs)
+        mood_values = song_style_questions()
+        play_again = make_recommendations(spotify, music_artists, user_genres, favourite_songs, mood_values)
     else:
         print('\n*****\nThank you for playing!\n'\
             'If you have any feedback, please reach out to:'\
