@@ -1,4 +1,5 @@
 import spotipy
+import readline
 from spotipy.oauth2 import SpotifyClientCredentials
 from client_details import *
 from spotify_details import *
@@ -22,35 +23,42 @@ def closed_question_answer_checks(y_or_n):
         remove_whitespace.replace(' ', '')
     return remove_whitespace.lower()
 
+# def direction_key_error(value):
+#     print(f'Artist Name: {value}')
+#     direction_keys = ['^[[A', '^[[B', '^[[C', '^[[D']
+#     print(any(direction_key in value for direction_key in direction_keys))
+#     if any(direction_key in value for direction_key in direction_keys):
+#         value = direction_key_error(input('A direction key was included in your response,'\
+#             '\nPlease input a new value\n'))
+#     return value
+
+
 def select_from_api(spotify, search_type):
     '''
     Connects to spotify API using credentials and selects user input values 
     based on whether they want to enter in an Artist or Track
     '''
-    list_of_searched_values = []
-    while len(list_of_searched_values) < 5:
+    valid_value = False
+    while valid_value == False:
         if search_type == 'Artist':
-            artist_name = input(f'{len(list_of_searched_values) + 1}. Music Artist: \n')
+            artist_name = input('Music Artist: \n')
             value = Artist(spotify, artist_name)
         elif search_type == 'Track':
-            song_name = input(f'{len(list_of_searched_values) + 1}. Song Name:\n')
+            song_name = input('Song Name:\n')
+            while song_name == '':
+                song_name = input('\nInvalid key or blank answer given\nPlease enter a new Song Name\n')
             song_artist = input('Song Sang By:\n')
+            while song_artist == '':
+                song_artist = input(f'\nInvalid key or blank answer given\nPlease enter the name of the artist who sang {song_name}\n')
             value = Track(song_artist, spotify, song_name)
-            print(value.preview_link())
         value_id = value.id()
-        if value_id and value_id not in list_of_searched_values:
-            list_of_searched_values.append(value_id)
+        print(value_id)
+        if value_id and len(value_id) > 0:
+            valid_value = True
+            return value_id
         else:
             print('\n******\nValue name is not valid or has already been entered'\
                 ' please enter a new name\n******\n')
-        if len(list_of_searched_values) < 5:
-            check_for_another_artist = input('\nDo you want to add another: Y or N:\n')
-            answer = closed_question_answer_checks(check_for_another_artist)
-            if answer == 'y':
-                pass
-            else:
-                break
-    return list_of_searched_values
 
 def artist_selection(spotify):
     '''
@@ -163,6 +171,14 @@ def song_style_questions():
 def make_recommendations(spotify, seed_artists, seed_genres, seed_tracks):
     '''docstring'''
     rec = spotify.recommendations(seed_artists=seed_artists, seed_genres=seed_genres, seed_tracks=seed_tracks)
+    song_recommendations = rec['tracks'][0]
+    # print(song_recommendations)
+    for each in song_recommendations:
+        # song = Track(each['artists']['name'], spotify, each['name'])
+        print(each)
+        # print(f"Song Name: {each['name']}")
+    #     print(f"Artist Name: {each['artists']['name']}")
+    #     print(f"Preview Link: {song.preview_link()}")
     return rec
 
 def main():

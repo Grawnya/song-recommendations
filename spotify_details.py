@@ -10,6 +10,8 @@ class SpotifyDetails:
     
     def search(self):
         '''docstring'''
+        while self.name == '':
+            self.name = input(f'\nA blank or invalid key was entered, please enter a new {self.search_value} value\n')
         results = self.spotify.search(q=f'{self.search_value}:{self.name}', type=f'{self.search_value}')
         narrowing_down_element_details = results[f'{self.search_value}s']
         return narrowing_down_element_details
