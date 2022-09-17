@@ -178,7 +178,7 @@ def main():
         play_again = make_recommendations(spotify, music_artists, user_genres, favourite_songs, mood_values)
     else:
         print('*****\n\nThank you for playing!\n'\
-            'If you have any feedback, please reach out to:'\
+            'If you have any feedback, please reach out to: '\
             'https://www.linkedin.com/in/grainne-donegan/'\
             '\n\n*****')
 
