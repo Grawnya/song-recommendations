@@ -1,15 +1,18 @@
+import json
 import spotipy
 import readline
+# import client_details
 from spotipy.oauth2 import SpotifyClientCredentials
-from client_details import *
 from spotify_details import *
 
 
-def run_spotify(client_id, client_secret):
+def run_spotify():
     '''
-    Access the Spotify API with a client ID and client secret
+    Access the Spotify API with a client ID and client secret from the client_details.json file
     '''
-    client_credentials_manager = SpotifyClientCredentials(client_id=client_id, client_secret=client_secret)
+    file = open('client_details.json')
+    data = json.load(file)
+    client_credentials_manager = SpotifyClientCredentials(client_id=data['CLIENT_ID'], client_secret=data['CLIENT_SECRET'])
     spotify = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
     return spotify
 
@@ -170,7 +173,7 @@ def make_recommendations(spotify, seed_artists, seed_genres, seed_tracks, mood_v
 def main():
     play_again = 'y'
     while play_again == 'y':
-        spotify = run_spotify(CLIENT_ID, CLIENT_SECRET)
+        spotify = run_spotify()
         music_artists = artist_selection(spotify)
         user_genres = genre_selection(spotify)
         favourite_songs = song_selection(spotify)
