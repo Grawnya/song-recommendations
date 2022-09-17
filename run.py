@@ -1,6 +1,6 @@
 import json
 import spotipy
-import readline
+# import readline
 import client_details
 from spotipy.oauth2 import SpotifyClientCredentials
 from spotify_details import *
