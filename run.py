@@ -146,9 +146,7 @@ def song_style_questions():
     
 def make_recommendations(spotify, seed_artists, seed_genres, seed_tracks, mood_values):
     '''docstring'''
-    print(mood_values)
     rec = spotify.recommendations(seed_artists=[seed_artists], seed_genres=[seed_genres], seed_tracks=[seed_tracks], **mood_values)
-    print(rec)
     song_recommendations = rec['tracks']
     for each in song_recommendations:
         song_name = each['name']
@@ -184,5 +182,9 @@ def main():
             'If you have any feedback, please reach out to: '\
             'https://www.linkedin.com/in/grainne-donegan/'\
             '\n\n*****')
-
-main()
+if __name__ == '__main__':
+    try:
+        main()
+    except KeyboardInterrupt:
+        print('You interrupted the game, lets play again')
+        main()
