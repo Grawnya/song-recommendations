@@ -7,12 +7,14 @@ class SpotifyDetails:
         self.name = name.replace("'", "")
         self.search_value = search_type_value
         self.specific_returned_item = self.search()
-    
+
     def search(self):
         '''docstring'''
         while self.name == '':
-            self.name = input(f'\nA blank or invalid key was entered, please enter a new {self.search_value} value\n')
-        results = self.spotify.search(q=f'{self.search_value}:{self.name}', type=f'{self.search_value}')
+            print('\nA blank or invalid key was entered, please')
+            self.name = input(f'enter a new {self.search_value} value\n')
+        results = self.spotify.search(q=f'{self.search_value}:{self.name}',
+                                      type=f'{self.search_value}')
         narrowing_down_element_details = results[f'{self.search_value}s']
         return narrowing_down_element_details
 
@@ -29,12 +31,14 @@ class SpotifyDetails:
         '''docstring'''
         return self.characteristic('id')
 
+
 class Artist(SpotifyDetails):
     '''
     artist subclass
     '''
     def __init__(self, spotify_credentials, name):
         super().__init__(spotify_credentials, name, search_type_value='artist')
+
 
 class Track(SpotifyDetails):
     '''
@@ -56,22 +60,28 @@ class Track(SpotifyDetails):
 
     def search(self):
         '''docstring'''
+        track_exists = 0
         self.name = self.feature_check(self.name)
         self.artist_name = self.feature_check(self.artist_name)
-        results = self.spotify.search(q=f"artist:{self.artist_name} track:{self.name}", type="track")
-        while results[f'{self.search_value}s']['total'] == 0:
-            print('\nSong invalid, please enter new values\n')
-            self.name = self.feature_check(input('Song Name:\n'))
-            self.artist_name = self.feature_check(input('Song Sang By:\n'))
-            results = self.spotify.search(q=f"{self.name} {self.artist_name}")
+        while track_exists == 0:
+            results = self.spotify.search(q=f"artist:{self.artist_name} "
+                                          f"track:{self.name}",
+                                          type="track")
+            if results[f'{self.search_value}s']['total'] != 0:
+                track_exists = 1
+            else:
+                print('\nSong invalid, please enter new values\n')
+                self.name = self.feature_check(input('Song Name:\n'))
+                self.artist_name = self.feature_check(input('Song Sang By:\n'))
         narrowing_down_element_details = results[f'{self.search_value}s']
         return narrowing_down_element_details
-    
+
     def preview_link(self):
         '''docstring'''
         link = self.characteristic('preview_url')
-        if link == None:
-            link = f'No Valid Preview Link - try the spotify link:\n{self.spotify_link()}'
+        if link is None:
+            link = 'No Valid Preview Link - try the spotify link:\n'\
+                f'{self.spotify_link()}'
         return link
 
     def spotify_link(self):
