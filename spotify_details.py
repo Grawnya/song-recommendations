@@ -58,8 +58,11 @@ class Track(SpotifyDetails):
         '''docstring'''
         self.name = self.feature_check(self.name)
         self.artist_name = self.feature_check(self.artist_name)
-        results = self.spotify.search(q=f"artist:{self.artist_name} {self.search_value}:{self.name}, type=f'{self.search_value}")
-        if results[f'{self.search_value}s']['total'] == 0:
+        results = self.spotify.search(q=f"artist:{self.artist_name} track:{self.name}", type="track")
+        while results[f'{self.search_value}s']['total'] == 0:
+            print('\nSong invalid, please enter new values\n')
+            self.name = self.feature_check(input('Song Name:\n'))
+            self.artist_name = self.feature_check(input('Song Sang By:\n'))
             results = self.spotify.search(q=f"{self.name} {self.artist_name}")
         narrowing_down_element_details = results[f'{self.search_value}s']
         return narrowing_down_element_details

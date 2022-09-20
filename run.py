@@ -186,5 +186,5 @@ if __name__ == '__main__':
     try:
         main()
     except KeyboardInterrupt:
-        print('You interrupted the game, lets play again')
+        print('\n\n*****\nYou interrupted the game, lets play again\n*****\n')
         main()
