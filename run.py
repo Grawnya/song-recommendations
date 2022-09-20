@@ -1,16 +1,22 @@
 import json
 import spotipy
-# import readline
-import client_details
+import readline
 from spotipy.oauth2 import SpotifyClientCredentials
 from spotify_details import *
+import os
+from os import path
+if path.exists("env.py"):
+    import env
 
 def run_spotify():
     '''
     Access the Spotify API with a client ID and client secret from the client_details.json file
     '''
-    
-    client_credentials_manager = SpotifyClientCredentials(client_id=client_details.CLIENT_ID, client_secret=client_details.CLIENT_SECRET)
+    print(os.getenv("CLIENT_ID"))
+    print('check1')
+    print(os.getenv("CLIENT_SECRET"))
+    print('check2')
+    client_credentials_manager = SpotifyClientCredentials(client_id=os.environ.get("CLIENT_ID"), client_secret=os.environ.get("CLIENT_SECRET"))
     spotify = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
     return spotify
 
