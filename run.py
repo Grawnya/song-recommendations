@@ -170,7 +170,10 @@ def song_style_questions():
 
 def make_recommendations(spotify, seed_artists, seed_genres,
                          seed_tracks, mood_values):
-    '''docstring'''
+    '''
+    Feed the inputted artist, genre, song and mood
+    values into the Spotify API to make recommendations 
+    '''
     rec = spotify.recommendations(seed_artists=[seed_artists],
                                   seed_genres=[seed_genres],
                                   seed_tracks=[seed_tracks],
@@ -223,7 +226,7 @@ def main():
               'If you have any feedback, please reach out to: '
               'https://www.linkedin.com/in/grainne-donegan/'
               '\n\n*****')
-              
+
 if __name__ == '__main__':
     try:
         main()
