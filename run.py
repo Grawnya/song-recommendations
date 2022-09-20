@@ -73,7 +73,7 @@ def artist_selection(spotify):
           'In order to make some suitable recommendations, '
           'we just need to get to know you a bit better!\n\n'
           'First of all, we need to know who your favourite music artists'
-          'are at the moment?\n\nUp to 5!\n\n'
+          ' are at the moment?\n\nUp to 5!\n\n'
           'Examples include: Cardi B, Arctic Monkeys and Bryan Adams\n\n'
           'Make sure you spell their name correctly\n\n')
     music_artists = select_from_api(spotify, 'Artist')
