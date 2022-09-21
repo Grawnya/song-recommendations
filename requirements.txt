@@ -1,3 +1,4 @@
 async-timeout==4.0.2
+Deprecated==1.2.13
 redis==4.3.4
 spotipy==2.20.0
