@@ -117,7 +117,7 @@ def genre_selection(spotify):
           '\n\n*****\nThe list below consists of the possible genres,'
           'which you can input one at a time\n*****\n')
     all_possible_genres = spotify.recommendation_genre_seeds()['genres']
-    genre_sentence = ',  '.join(str(genre) for genre in all_possible_genres)
+    genre_sentence = ', '.join(str(genre) for genre in all_possible_genres)
     print(genre_sentence + '\n\n')
     genre_input = genre_is_valid(input('Genre: \n'),
                                  all_possible_genres)
