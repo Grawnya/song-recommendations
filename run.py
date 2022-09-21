@@ -1,12 +1,16 @@
 import json
 import spotipy
 import readline
+import warnings
 from spotipy.oauth2 import SpotifyClientCredentials
 from spotify_details import *
 import os
 from os import path
 if path.exists("env.py"):
     import env
+
+
+warnings.filterwarnings("ignore", category=DeprecationWarning) 
 
 
 def run_spotify():
@@ -17,7 +21,8 @@ def run_spotify():
     creds = {'client_id': os.environ.get("CLIENT_ID"),
              'client_secret': os.environ.get("CLIENT_SECRET")}
     credentials = SpotifyClientCredentials(**creds)
-    spotify = spotipy.Spotify(client_credentials_manager=credentials)
+    token = credentials.get_access_token()
+    spotify = spotipy.Spotify(token['access_token'])
     return spotify
 
 
@@ -28,8 +33,7 @@ def closed_question_answer_checks(y_or_n):
     remove_whitespace = y_or_n.replace(' ', '')
     while remove_whitespace.isalpha() is False or \
             remove_whitespace.lower() not in ['y', 'n']:
-        remove_whitespace = input('\nAnswer not valid. Please enter y (yes)'
-                                  ' or n (no):\n')
+        remove_whitespace = input('\nAnswer not valid. Please enter y or n:\n')
         remove_whitespace.replace(' ', '')
     return remove_whitespace.lower()
 
