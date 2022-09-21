@@ -26,9 +26,14 @@ def closed_question_answer_checks(y_or_n):
     Checks if the user inputs a valid y (yes) or n (no) value into the terminal
     '''
     remove_whitespace = y_or_n.replace(' ', '')
+    if remove_whitespace == 'yes':
+        remove_whitespace = 'y'
+    elif remove_whitespace == 'no':
+        remove_whitespace = 'n'
     while remove_whitespace.isalpha() is False or \
             remove_whitespace.lower() not in ['y', 'n']:
-        remove_whitespace = input('\nAnswer not valid. Please enter y or n:\n')
+        remove_whitespace = input('\nAnswer not valid. '
+                                  'Please enter y (for yes) or n (for no):\n')
         remove_whitespace.replace(' ', '')
     return remove_whitespace.lower()
 
@@ -91,13 +96,12 @@ def format_genre_input(genre):
     return genre
 
 
-def genre_is_valid(spotify, genre, all_possible_genres):
+def genre_is_valid(genre, all_possible_genres):
     '''Checks if a genre is in the list of spotify genres'''
     if genre.replace(' ', '').isalpha():
         genre = format_genre_input(genre)
     while genre not in all_possible_genres:
-        genre = genre_is_valid(spotify,
-                               input('\nPlease input a new genre as '
+        genre = genre_is_valid(input('\nPlease input a new genre as '
                                      'the one entered is not valid\n'),
                                all_possible_genres)
     return genre
@@ -115,8 +119,7 @@ def genre_selection(spotify):
     all_possible_genres = spotify.recommendation_genre_seeds()['genres']
     genre_sentence = ',  '.join(str(genre) for genre in all_possible_genres)
     print(genre_sentence + '\n\n')
-    genre_input = genre_is_valid(spotify,
-                                 input('Genre: \n'),
+    genre_input = genre_is_valid(input('Genre: \n'),
                                  all_possible_genres)
     return genre_input
 
@@ -172,7 +175,7 @@ def make_recommendations(spotify, seed_artists, seed_genres,
                          seed_tracks, mood_values):
     '''
     Feed the inputted artist, genre, song and mood
-    values into the Spotify API to make recommendations 
+    values into the Spotify API to make recommendations
     '''
     rec = spotify.recommendations(seed_artists=[seed_artists],
                                   seed_genres=[seed_genres],
