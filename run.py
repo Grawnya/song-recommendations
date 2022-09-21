@@ -26,14 +26,10 @@ def closed_question_answer_checks(y_or_n):
     Checks if the user inputs a valid y (yes) or n (no) value into the terminal
     '''
     remove_whitespace = y_or_n.replace(' ', '')
-    if remove_whitespace == 'yes':
-        remove_whitespace = 'y'
-    elif remove_whitespace == 'no':
-        remove_whitespace = 'n'
     while remove_whitespace.isalpha() is False or \
             remove_whitespace.lower() not in ['y', 'n']:
-        remove_whitespace = input('\nAnswer not valid. '
-                                  'Please enter y (for yes) or n (for no):\n')
+        remove_whitespace = input('\nAnswer not valid. Please enter y (yes)'
+                                  ' or n (no):\n')
         remove_whitespace.replace(' ', '')
     return remove_whitespace.lower()
 
@@ -175,7 +171,7 @@ def make_recommendations(spotify, seed_artists, seed_genres,
                          seed_tracks, mood_values):
     '''
     Feed the inputted artist, genre, song and mood
-    values into the Spotify API to make recommendations
+    values into the Spotify API to make recommendations 
     '''
     rec = spotify.recommendations(seed_artists=[seed_artists],
                                   seed_genres=[seed_genres],
