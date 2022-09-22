@@ -25,7 +25,7 @@ def run_spotify():
         token = credentials.get_access_token()
         spotify = spotipy.Spotify(token['access_token'])
     except:
-        token = credentials._request_access_token()
+        token = credentials.get_access_token()
         spotify = spotipy.Spotify(token['access_token'])
     return spotify
 
