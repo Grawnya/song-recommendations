@@ -25,7 +25,7 @@ def run_spotify():
         token_cache = credentials.cache_handler.get_cached_token()
         values = credentials.cache_handler.save_token_to_cache(token_cache)
         token = credentials.get_access_token()
-        while credentials.is_token_expired(token):
+        while credentials.is_token_expired(token_cache) == True:
             token = credentials.get_access_token()
         spotify = spotipy.Spotify(token['access_token'])
     except:
