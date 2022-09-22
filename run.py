@@ -20,9 +20,13 @@ def run_spotify():
     '''
     creds = {'client_id': os.environ.get("CLIENT_ID"),
              'client_secret': os.environ.get("CLIENT_SECRET")}
+    credentials = SpotifyClientCredentials(**creds)
     try:
-        credentials = SpotifyClientCredentials(**creds)
+        token_cache = credentials.cache_handler.get_cached_token()
+        values = credentials.cache_handler.save_token_to_cache(token_cache)
         token = credentials.get_access_token()
+        while credentials.is_token_expired(token):
+            token = credentials.get_access_token()
         spotify = spotipy.Spotify(token['access_token'])
     except:
         token = credentials.get_access_token()
@@ -218,10 +222,7 @@ def make_recommendations(spotify, seed_artists, seed_genres,
 def main():
     play_again = 'y'
     while play_again == 'y':
-        try:
-            spotify = run_spotify()
-        except spotipy.oauth2.SpotifyOauthError:
-            spotify = run_spotify()
+        spotify = run_spotify()
         music_artists = artist_selection(spotify)
         user_genres = genre_selection(spotify)
         favourite_songs = song_selection(spotify)
