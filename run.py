@@ -20,9 +20,13 @@ def run_spotify():
     '''
     creds = {'client_id': os.environ.get("CLIENT_ID"),
              'client_secret': os.environ.get("CLIENT_SECRET")}
-    credentials = SpotifyClientCredentials(**creds)
-    token = credentials.get_access_token()
-    spotify = spotipy.Spotify(token['access_token'])
+    try:
+        credentials = SpotifyClientCredentials(**creds)
+        token = credentials.get_access_token()
+        spotify = spotipy.Spotify(token['access_token'])
+    except:
+        token = credentials._request_access_token()
+        spotify = spotipy.Spotify(token['access_token'])
     return spotify
 
 
@@ -216,7 +220,7 @@ def main():
     while play_again == 'y':
         try:
             spotify = run_spotify()
-        except:
+        except spotipy.oauth2.SpotifyOauthError:
             spotify = run_spotify()
         music_artists = artist_selection(spotify)
         user_genres = genre_selection(spotify)
