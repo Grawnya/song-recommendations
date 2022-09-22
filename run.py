@@ -115,7 +115,7 @@ def genre_selection(spotify):
     print('\n\nNext up is genre selection!!\n'
           'Now we find out if you are more of a Dancing Queen or a Rock Star?'
           '\n\n*****\nThe list below consists of the possible genres,'
-          'which you can input one at a time\n*****\n')
+          'which you can input one at a time\n*****')
     all_possible_genres = spotify.recommendation_genre_seeds()['genres']
     genre_sentence = ', '.join(str(genre) for genre in all_possible_genres)
     print(genre_sentence + '\n\n')
@@ -214,7 +214,10 @@ def make_recommendations(spotify, seed_artists, seed_genres,
 def main():
     play_again = 'y'
     while play_again == 'y':
-        spotify = run_spotify()
+        try:
+            spotify = run_spotify()
+        except:
+            spotify = run_spotify()
         music_artists = artist_selection(spotify)
         user_genres = genre_selection(spotify)
         favourite_songs = song_selection(spotify)
