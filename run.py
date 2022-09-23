@@ -20,8 +20,7 @@ def run_spotify():
     '''
     creds = {'client_id': os.environ.get("CLIENT_ID"),
              'client_secret': os.environ.get("CLIENT_SECRET")}
-    credentials = SpotifyClientCredentials(**creds)
-    spotify = spotipy.Spotify(auth_manager=credentials)
+    spotify = spotipy.Spotify(auth_manager=SpotifyClientCredentials(**creds))
     return spotify
 
 
