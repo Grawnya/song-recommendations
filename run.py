@@ -2,6 +2,7 @@ import json
 import spotipy
 import readline
 import warnings
+import time
 from spotipy.oauth2 import SpotifyClientCredentials
 from spotify_details import *
 import os
@@ -21,6 +22,7 @@ def run_spotify():
     creds = {'client_id': os.environ.get("CLIENT_ID"),
              'client_secret': os.environ.get("CLIENT_SECRET")}
     spotify = spotipy.Spotify(auth_manager=SpotifyClientCredentials(**creds))
+    time.sleep(2)
     return spotify
 
 
@@ -213,7 +215,11 @@ def main():
     play_again = 'y'
     while play_again == 'y':
         spotify = run_spotify()
-        music_artists = artist_selection(spotify)
+        try:
+            music_artists = artist_selection(spotify)
+        except:
+            spotify = run_spotify()
+            music_artists = artist_selection(spotify)
         user_genres = genre_selection(spotify)
         favourite_songs = song_selection(spotify)
         mood_values = song_style_questions()
