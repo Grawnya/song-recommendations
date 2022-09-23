@@ -21,10 +21,7 @@ def run_spotify():
     creds = {'client_id': os.environ.get("CLIENT_ID"),
              'client_secret': os.environ.get("CLIENT_SECRET")}
     credentials = SpotifyClientCredentials(**creds)
-    token = credentials.get_access_token()
-    while credentials.is_token_expired(token):
-        token = credentials.get_access_token()
-    spotify = spotipy.Spotify(token['access_token'])
+    spotify = spotipy.Spotify(auth_manager=credentials)
     return spotify
 
 
@@ -79,8 +76,8 @@ def artist_selection(spotify):
           'If yes, then you\'ve come to the right place!\n\n'
           'In order to make some suitable recommendations, '
           'we just need to get to know you a bit better!\n\n'
-          'First of all, we need to know who your favourite music artists'
-          ' are at the moment?\n\nUp to 5!\n\n'
+          'First of all, we need to know who your favourite music artist'
+          ' is at the moment?\n\n'
           'Examples include: Cardi B, Arctic Monkeys and Bryan Adams\n\n'
           'Make sure you spell their name correctly\n\n')
     music_artists = select_from_api(spotify, 'Artist')
@@ -130,8 +127,8 @@ def song_selection(spotify):
     '''
     Selects inputted songs and returns their IDs as a comma separated string
     '''
-    print('We now need to know what your favourite songs to listen to'
-          'are at the moment!\nUp to 5!\n'
+    print('We now need to know what your favourite song to listen to'
+          'is at the moment!\n'
           'Firstly put in the name of the song and then the primary artist\n'
           'Examples include:\n\nSong Name:\nTimber\nSong Sang By:\nPitbull'
           '\n\nSong Name:\nBelieve\nSong Sang By:\nCher\n\n'
